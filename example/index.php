@@ -23,8 +23,8 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
         } else {
             echo 'failure';
         }
+        die(); /* should not continue execution after this point! */
     }
-    die(); /* should not continue execution! */
 }
 
 if (empty($_POST['token']) || $token_age > 300) {
