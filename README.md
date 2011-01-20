@@ -3,14 +3,14 @@ Note
 I don't even think you should be using this
 class(you should not store passwords), but use federated login like for example
 openid. I would also like to point out to read this very interesting blog post
-by Jeff Atwood(http://www.codinghorror.com/blog/2010/12/the-dirty-truth-about-web-passwords.html)
+["The Dirty Truth About Web Passwords " by Jeff Atwood](http://www.codinghorror.com/blog/2010/12/the-dirty-truth-about-web-passwords.html)
 I am smart enough to NOT store the passwords in plain-text,
 but use the very good phpass library to store passwords safely in the database.
 I just don't think you should create yet another account to use a service.
 Also as another sidenote I would like to point out that if you don't use SSL
 your password would be sent over the wire in plaintext which I think is also
 pretty BAD. the (good) openid-providers have SSL in place.
-I think you should use the very good lightopenid(http://gitorious.org/lightopenid)
+I think you should use the very good [lightopenid](http://gitorious.org/lightopenid)
 library to use openid.
 
 Requirements
