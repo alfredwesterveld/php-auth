@@ -31,6 +31,8 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     public function testAddingAccountTwice() {
         $this->assertTrue($this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld"));
         $this->assertFalse($this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld"));
+        $this->assertFalse($this->authentication->create("alfred", "dada@dada.com", "westerveld"));
+
     }
 
     public function testLoginUserWhichDoesNotExist() {

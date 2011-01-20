@@ -19,8 +19,8 @@ class Authentication {
     }
     
     public function createTables() {
-        $this->db->exec("CREATE TABLE IF NOT EXISTS users (Id INTEGER PRIMARY KEY
-        , username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, hash TEXT NOT NULL, active BOOLEAN)");    
+        $this->db->exec("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY
+        , username TEXT NOT NULL UNIQUE, email TEXT NOT NULL, hash TEXT NOT NULL, active BOOLEAN)");
     }
     
     public function create($username, $email, $password) {
@@ -41,9 +41,9 @@ class Authentication {
         $row = $stmt->fetch();
         if ($this->hasher->CheckPassword($password, $row['hash'])) {
             return true;
-	    } else {
-	        return false;
-	    }
+        } else {
+            return false;
+        }
     }
     
     public function isActivated($username) {
