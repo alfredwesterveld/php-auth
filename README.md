@@ -9,8 +9,8 @@ but use the very good phpass library to store passwords safely in the database.
 I just don't think you should create yet another account to use a service.
 Also as another sidenote I would like to point out that if you don't use SSL
 your password would be sent over the wire in plaintext which I think is also
-pretty BAD. the (good) openid-providers have SSL in place.
-I think you should use the very good [lightopenid](http://gitorious.org/lightopenid)
+pretty BAD. the (good) OpenID providers have SSL in place.
+I think you should use the very good [LightOpenID](http://gitorious.org/lightopenid)
 library to use openid.
 
 Requirements
