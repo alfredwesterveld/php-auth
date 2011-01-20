@@ -1,4 +1,7 @@
 <?php
+
+    $db = new PDO('sqlite:database/login.sqlite3'); // Should update this if necessary.
+    
     session_start();
 
     /**
@@ -19,10 +22,7 @@
             $hash_cost_log2 = 8; // Base-2 logarithm of the iteration count used for password stretching
             $hash_portable = FALSE; // Do we require the hashes to be portable to older systems (less secure)?
             $hasher = new PasswordHash($hash_cost_log2, $hash_portable);
-            $db = new PDO('sqlite:database/login.sqlite3');
             $authentication = new Authentication($db, $hasher);
-            $authentication->createTables();
-
             if ($authentication->login($_POST['identifier'], $_POST['password'])) {
                 echo 'succes';
             } else {
