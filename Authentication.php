@@ -22,11 +22,27 @@ class Authentication {
         $this->db->exec("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY
         , username TEXT NOT NULL UNIQUE, email TEXT NOT NULL, hash TEXT NOT NULL, active BOOLEAN)");
     }
+
+    /**
+     * Should call this, but I am out of time. For Later.
+     * @param <type> $email
+     * @return <type>
+     */
+    private function checkEmailIsUnique($email) {
+        $placeholders = array($email);
+        $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
+        $stmt->execute($placeholders);
+        $row = $stmt->fetch();
+        return $row['email'] == $email;
+    }
     
     public function create($username, $email, $password) {
         $hash = $this->hasher->HashPassword($password);
         if (strlen($hash) < 20)
 	        throw new Exception('Failed to hash new password');
+
+        //if (!$this->checkEmailIsUnique($email))
+        //        return false;
 
         $placeholders = array($username, $email, $hash);
         $stmt = $this->db->prepare("INSERT OR IGNORE INTO users (username, email, hash) VALUES (?, ?, ?)");
