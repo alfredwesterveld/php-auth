@@ -6,7 +6,7 @@ OpenID. I would  like to point out to read this very interesting blog post
 ["The Dirty Truth About Web Passwords " by Jeff Atwood](http://www.codinghorror.com/blog/2010/12/the-dirty-truth-about-web-passwords.html)
 Luckily I am smart enough NOT to store the passwords in plain-text,
 but use the very good
-[phpass library](http://www.openwall.com/phpass)
+[phpass library](http://www.openwall.com/phpass/)
 to store passwords safely in the database.
 I just don't think you should create yet another account to use a service.
 I would also like to point out that if you don't use SSL your password would be
