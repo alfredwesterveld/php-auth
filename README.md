@@ -52,8 +52,6 @@ I am using this SQLite3 database in my example.
 Todo
 --
 
-- I would like for email to be unique, but right now that breaks some tests and
- I do not have any time right now to finish this.
 - The ability to protect creating(and or login) of accounts with CAPTCHA.
 - The ability to protect account creation by sending of emails. There is code in
  place to do this(Authentication.php), but not yet in the example.
