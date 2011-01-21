@@ -8,6 +8,12 @@ session_start();
 
 $token_age = time() - $_SESSION['token_time'];
 
+if (empty($_POST['token']) || $token_age > 300) {
+    $token = md5(uniqid(rand(), TRUE));
+    $_SESSION['token'] = $token;
+    $_SESSION['token_time'] = time();
+}
+
 /* Valid CSRF-Token. */
 if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_age <= 300) {
     /* Enforce string length on password as security measurement. */
@@ -25,12 +31,6 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
         }
         die(); /* should not continue execution after this point! */
     }
-}
-
-if (empty($_POST['token']) || $token_age > 300) {
-    $token = md5(uniqid(rand(), TRUE));
-    $_SESSION['token'] = $token;
-    $_SESSION['token_time'] = time();
 }
 
 ?>

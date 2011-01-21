@@ -4,6 +4,12 @@ session_start();
 
 $token_age = time() - $_SESSION['token_time'];
 
+if (empty($_POST['token']) || $token_age > 300) {
+    $token = md5(uniqid(rand(), TRUE));
+    $_SESSION['token'] = $token;
+    $_SESSION['token_time'] = time();
+}
+
 /**
  * Has protection against CSRF.
  * See http://shiflett.org/articles/cross-site-request-forgeries for more information!
@@ -21,12 +27,6 @@ if (!empty($_POST['username']) && !empty($_POST['email']) && strlen($_POST['pass
         print 'could not creat account';
     }
     die();
-}
-
-if (empty($_POST['token']) || $token_age > 300) {
-    $token = md5(uniqid(rand(), TRUE));
-    $_SESSION['token'] = $token;
-    $_SESSION['token_time'] = time();
 }
 ?>
 <html>
