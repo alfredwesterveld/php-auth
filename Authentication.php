@@ -28,14 +28,22 @@ class Authentication {
      * @param <type> $email
      * @return <type>
      */
-    private function checkEmailIsUnique($email) {
+    public function checkEmailIsUnique($email) {
         $placeholders = array($email);
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute($placeholders);
         $row = $stmt->fetch();
         return $row['email'] != $email;
     }
-    
+
+    public function checkUsernameIsUnique($username) {
+        $placeholders = array($username);
+        $stmt = $this->db->prepare("SELECT username FROM users WHERE username = ?");
+        $stmt->execute($placeholders);
+        $row = $stmt->fetch();
+        return $row['username'] != $username;
+    }
+
     public function create($username, $email, $password) {
         $hash = $this->hasher->HashPassword($password);
         if (strlen($hash) < 20)

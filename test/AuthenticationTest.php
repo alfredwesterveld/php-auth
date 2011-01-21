@@ -33,6 +33,18 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($this->authentication->create("alfred", "dada@dada.com", "westerveld"));
     }
 
+    public function testUsernameUniqueness() {
+        $this->assertTrue($this->authentication->checkUsernameIsUnique("alfred"));
+        $this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld");
+        $this->assertFalse($this->authentication->checkUsernameIsUnique("alfred"));
+    }
+
+    public function testEmailUniqueness() {
+        $this->assertTrue($this->authentication->checkEmailIsUnique("alfredwesterveld@gmail.com"));
+        $this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld");
+        $this->assertFalse($this->authentication->checkEmailIsUnique("alfredwesterveld@gmail.com"));
+    }
+
     public function testAddingAccountWithSameEmailAddressTwice() {
         $this->assertTrue($this->authentication->create("a", "alfredwesterveld@gmail.com", "westerveld"));
         $this->assertFalse($this->authentication->create("b", "alfredwesterveld@gmail.com", "password"));
