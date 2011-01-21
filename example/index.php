@@ -50,5 +50,9 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
 
             <input type="submit" />
         </form>
+
+        <p>
+            <a href="create.php">Have no account? Click here to create one!</a>
+        </p>
     </body>
 </html>
