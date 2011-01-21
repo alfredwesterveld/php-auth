@@ -1,6 +1,5 @@
 <?php
 
-
 require dirname(__FILE_) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Authentication.php';
 
 /**
@@ -28,15 +27,15 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld"));
     }
 
-    public function testAddingAccountTwice() {
+    public function testAddingSameAccountTwice() {
         $this->assertTrue($this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld"));
         $this->assertFalse($this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld"));
         $this->assertFalse($this->authentication->create("alfred", "dada@dada.com", "westerveld"));
+    }
 
-        /**
-         * Breaks tests for now :$.
-         */
-        //$this->assertFalse($this->authentication->create("hi", "alfredwesterveld@gmail.com", "westerveld"));
+    public function testAddingAccountWithSameEmailAddressTwice() {
+        $this->assertTrue($this->authentication->create("a", "alfredwesterveld@gmail.com", "westerveld"));
+        $this->assertFalse($this->authentication->create("b", "alfredwesterveld@gmail.com", "password"));
     }
 
     public function testLoginUserWhichDoesNotExist() {
@@ -50,7 +49,6 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testLoginAlsoWorksForEmail() {
-        $this->assertFalse($this->authentication->login("alfredwesterveld@gmail.com", "westerveld"));
         $this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld");
         $this->assertTrue($this->authentication->login("alfredwesterveld@gmail.com", "westerveld"));
     }
@@ -76,7 +74,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($this->authentication->isActivated("alfred"));
     }
 
-    public function testThatAccountIsActivatedAfterVerification() {
+    public function testAccountIsActivatedAfterVerification() {
         $this->authentication->create("alfred", "alfredwesterveld@gmail.com", "westerveld");
         $secret = $this->authentication->createEmailVerificationSecret("alfredwesterveld@gmail.com");
         $this->authentication->verifyEmail("alfredwesterveld@gmail.com", $secret);

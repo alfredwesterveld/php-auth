@@ -24,7 +24,7 @@ class Authentication {
     }
 
     /**
-     * Should call this, but I am out of time. For Later.
+     * Check that email is unique
      * @param <type> $email
      * @return <type>
      */
@@ -33,7 +33,7 @@ class Authentication {
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute($placeholders);
         $row = $stmt->fetch();
-        return $row['email'] == $email;
+        return $row['email'] != $email;
     }
     
     public function create($username, $email, $password) {
@@ -41,8 +41,8 @@ class Authentication {
         if (strlen($hash) < 20)
 	        throw new Exception('Failed to hash new password');
 
-        //if (!$this->checkEmailIsUnique($email))
-        //        return false;
+        if (!$this->checkEmailIsUnique($email))
+                return false;
 
         $placeholders = array($username, $email, $hash);
         $stmt = $this->db->prepare("INSERT OR IGNORE INTO users (username, email, hash) VALUES (?, ?, ?)");
