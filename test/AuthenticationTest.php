@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE_) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Authentication.php';
+require dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AuthenticationFactory.php';
 
 /**
  *
@@ -19,7 +19,7 @@ class AuthenticationTest extends PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         $db = new PDO('sqlite::memory:');
-        $this->authentication = new Authentication($db, self::$hasher);
+        $this->authentication = AuthenticationFactory::create($db, self::$hasher);
         $this->authentication->createTables();
     }
 

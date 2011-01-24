@@ -1,7 +1,5 @@
 <?php
 
-require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'PasswordHash.php';
-
 /**
  * 
  * @author alfred
