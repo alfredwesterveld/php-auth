@@ -17,8 +17,9 @@ class Authentication {
     }
     
     public function createTables() {
-        $this->db->exec("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY
-        , username TEXT NOT NULL UNIQUE, email TEXT NOT NULL, hash TEXT NOT NULL, active BOOLEAN)");
+        $this->db->exec("CREATE TABLE IF NOT EXISTS users " .
+        "(id INTEGER PRIMARY KEY , username TEXT NOT NULL UNIQUE, " .
+        "email TEXT NOT NULL, hash TEXT NOT NULL, active BOOLEAN)");
     }
 
     /**
