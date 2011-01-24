@@ -1,7 +1,8 @@
 <?php
 
 define('PATH_PROJECT', realpath(dirname(__FILE__)));
-require PATH_PROJECT . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'AuthenticationFactory.php';
+define('PREVIOUS_FOLDER', DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR);
+require PATH_PROJECT . PREVIOUS_FOLDER . 'AuthenticationFactory.php';
 
 /**
  *
