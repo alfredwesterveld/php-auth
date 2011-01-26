@@ -21,13 +21,11 @@ $token_age = time() - $_SESSION['token_time'];
 if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_age <= 300) {
     /* Enforce string length on password as security measurement. */
     if (!empty($_POST['identifier']) && strlen($_POST['password']) >= 8) {
-        //require dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Authentication.php';
-        //require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'database.php';
         $hash_cost_log2 = 8; // Base-2 logarithm of the iteration count used for password stretching
         $hash_portable = FALSE; // Do we require the hashes to be portable to older systems (less secure)?
         $hasher = new PasswordHash($hash_cost_log2, $hash_portable);
         $settings = new Settings();
-        $authentication = new Authentication($settings->get('db')/* GLOBAL from database.php */, $hasher);
+        $authentication = new Authentication($settings->get('db'), $hasher);
         if ($authentication->login($_POST['identifier'], $_POST['password'])) {
             echo 'succes';
         } else {
