@@ -7,6 +7,17 @@
 /**
  * 
  */
+
+define('PATH_PROJECT', realpath(dirname(__FILE__)));
+define('DATABASE_FOLDER', PATH_PROJECT . DIRECTORY_SEPARATOR . "database");
+
+//die(DATABASE_FOLDER);
+if (!is_dir(DATABASE_FOLDER)) {
+    if (!mkdir(DATABASE_FOLDER, 700)) {
+        die('Failed to create folders...');
+    }
+}
+
 $db = new PDO('sqlite:database/login.sqlite3');
 
 function createTables($db) {
