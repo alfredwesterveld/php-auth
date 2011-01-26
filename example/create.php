@@ -15,12 +15,14 @@ $token_age = time() - $_SESSION['token_time'];
  * See http://shiflett.org/articles/cross-site-request-forgeries for more information!
  */
 if (!empty($_POST['username']) && !empty($_POST['email']) && strlen($_POST['password']) >= 8) {
-    require dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Authentication.php';
-    require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'database.php';
+    include dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." .
+            DIRECTORY_SEPARATOR . "Autoloader.php";
     $hash_cost_log2 = 8; // Base-2 logarithm of the iteration count used for password stretching
     $hash_portable = FALSE; // Do we require the hashes to be portable to older systems (less secure)?
     $hasher = new PasswordHash($hash_cost_log2, $hash_portable);
-    $auth = new Authentication($db /* GLOBAL from database.php */, $hasher);
+    $settings = new Settings();
+
+    $auth = new Authentication($settings->get('db'), $hasher);
     if ($auth->create($_POST['username'], $_POST['email'], $_POST['password'])) {
         print 'account created';
     } else {
