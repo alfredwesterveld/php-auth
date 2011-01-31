@@ -50,8 +50,11 @@ class Authentication {
 
     public function create($username, $email, $password) {
         $hash = $this->hasher->HashPassword($password);
+        
         if (strlen($hash) < 20) {
-	        throw new Exception('Failed to hash new password');
+            // @codeCoverageIgnoreStart
+            throw new Exception('Failed to hash new password');
+            // @codeCoverageIgnoreEnd
         }
 
         if (!$this->checkEmailIsUnique($email)) {
@@ -100,9 +103,8 @@ class Authentication {
         }
 
         $hash = $this->hasher->HashPassword($email);
-        if (strlen($hash) < 20) {
+        if (strlen($hash) < 20)
 	        throw new Exception('Failed to hash new password');
-        }
         return $hash;
     }
     
