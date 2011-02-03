@@ -25,7 +25,6 @@
 # requirements (there can be none), but merely suggestions.
 #
 
-// @codeCoverageIgnoreStart
 class PasswordHash {
 	var $itoa64;
 	var $iteration_count_log2;
@@ -251,5 +250,4 @@ class PasswordHash {
 		return $hash == $stored_hash;
 	}
 }
-// @codeCoverageIgnoreStop
 ?>
