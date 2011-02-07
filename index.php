@@ -7,7 +7,13 @@
 session_start();
 
 define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR);
-             
+ 
+if (isset($_SESSION['identifier'])) {
+    echo $_SESSION['identifier'] . '<br />';
+    echo '<a href="logout.php">logout</a>';
+    exit(0);
+}
+            
 if (empty($_POST['token']) ||  (isset($token_age) && $token_age > 300)) {
     $token = md5(uniqid(rand(), TRUE));
     $_SESSION['token'] = $token;
@@ -29,6 +35,7 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
         $authentication = new Authentication($settings->get('db'), $hasher);
         if ($authentication->login($_POST['identifier'], $_POST['password'])) {
             session_regenerate_id(true);
+            $_SESSION['identifier'] = $_POST['identifier'];
             echo 'succes';
         } else {
             echo 'failure';
