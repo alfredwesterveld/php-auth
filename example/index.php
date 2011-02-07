@@ -6,6 +6,9 @@
  */
 session_start();
 
+define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." .
+            DIRECTORY_SEPARATOR);
+             
 if (empty($_POST['token']) ||  (isset($token_age) && $token_age > 300)) {
     $token = md5(uniqid(rand(), TRUE));
     $_SESSION['token'] = $token;
@@ -18,8 +21,7 @@ $token_age = time() - $_SESSION['token_time'];
 if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_age <= 300) {
     /* Enforce string length on password as security measurement. */
     if (!empty($_POST['identifier']) && strlen($_POST['password']) >= 8) {
-        include dirname(__FILE__) . DIRECTORY_SEPARATOR . ".." .
-            DIRECTORY_SEPARATOR . "Autoloader.php";
+        include DIR . "Autoloader.php";
 
         $hash_cost_log2 = 8; // Base-2 logarithm of the iteration count used for password stretching
         $hash_portable = FALSE; // Do we require the hashes to be portable to older systems (less secure)?
