@@ -6,7 +6,7 @@
  */
 session_start();
 
-define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR);
+define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR);
              
 if (empty($_POST['token']) ||  (isset($token_age) && $token_age > 300)) {
     $token = md5(uniqid(rand(), TRUE));
