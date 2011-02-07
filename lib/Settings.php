@@ -5,7 +5,7 @@ class Settings {
 
     public function  __construct() {
         $this->com_alfredwesterveld_Settings = array(
-            "db" => new PDO('sqlite:../database/login.sqlite3')
+            "db" => new PDO('sqlite:database/login.sqlite3')
         );
     }
 
