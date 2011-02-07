@@ -1,8 +1,12 @@
 <?php
 
+session_start();
+
 define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR);
 
-session_start();
+/* prevent XSS. */
+$_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 if (empty($_POST['token']) ||  (isset($token_age) && $token_age > 300)) {
     $token = md5(uniqid(rand(), TRUE));
@@ -25,9 +29,11 @@ if (!empty($_POST['username']) && !empty($_POST['email']) && strlen($_POST['pass
 
     $auth = new Authentication($settings->get('db'), $hasher);
     if ($auth->create($_POST['username'], $_POST['email'], $_POST['password'])) {
-        print 'account created';
+        print 'account created<br />';
+        print '<a href="index.php">Go back!</a>';
     } else {
-        print 'could not creat account';
+        print 'could not creat account<br />';
+        print '<a href="index.php">Go back!</a>';
     }
     die();
 }

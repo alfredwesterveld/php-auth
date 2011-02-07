@@ -7,6 +7,10 @@
 session_start();
 
 define('DIR', dirname(__FILE__) . DIRECTORY_SEPARATOR . "lib" . DIRECTORY_SEPARATOR);
+
+/* prevent XSS. */
+$_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
  
 if (isset($_SESSION['identifier'])) {
     echo $_SESSION['identifier'] . '<br />';
@@ -36,7 +40,7 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
         if ($authentication->login($_POST['identifier'], $_POST['password'])) {
             session_regenerate_id(true);
             $_SESSION['identifier'] = $_POST['identifier'];
-            echo 'succes';
+            echo '<p>Welcome' . $_POST['identifier'];
         } else {
             echo 'failure';
         }
