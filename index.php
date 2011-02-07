@@ -28,7 +28,7 @@ if (!empty($_POST['token']) && $_POST['token'] == $_SESSION['token'] && $token_a
         $settings = new Settings();
         $authentication = new Authentication($settings->get('db'), $hasher);
         if ($authentication->login($_POST['identifier'], $_POST['password'])) {
-            session_regenerate_id();
+            session_regenerate_id(true);
             echo 'succes';
         } else {
             echo 'failure';
